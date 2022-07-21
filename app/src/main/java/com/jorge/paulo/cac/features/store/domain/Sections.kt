@@ -3,8 +3,7 @@ package com.jorge.paulo.cac.features.store.domain
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 
 
-enum class Sections(val type: String, val icon: AppIconList){
-    HOME("Profile", AppIconList.PISTOL),
+enum class Sections(val type: String? = null, val icon: AppIconList? = null) {
     STORE("Loja", AppIconList.INFO),
     INSTRUCTOR("Instrutor", AppIconList.SCHOOL),
     ADMINISTRATOR("Administrador", AppIconList.SHARE),
@@ -13,4 +12,6 @@ enum class Sections(val type: String, val icon: AppIconList){
     NOTIFICATION("Mensagem", AppIconList.WHATS),
     COURSE("Cursos", AppIconList.EMAIL),
     CHALLENGE("Desafios", AppIconList.YOUTUBE),
+    PROFILE("Profile", AppIconList.ACCOUNT),
+    HOME()
 }

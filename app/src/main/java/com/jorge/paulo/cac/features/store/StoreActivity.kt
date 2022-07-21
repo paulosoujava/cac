@@ -10,10 +10,15 @@ import com.jorge.paulo.cac.core.commom.ui.theme.AppTheme
 import com.jorge.paulo.cac.features.profile.ProfileActivity
 import com.jorge.paulo.cac.features.profile.presentation.ProfileScreens
 import com.jorge.paulo.cac.features.store.domain.Sections
+import com.jorge.paulo.cac.features.store.fragments.Administrator
 import com.jorge.paulo.cac.features.store.fragments.Cac
+import com.jorge.paulo.cac.features.store.fragments.Challenge
+import com.jorge.paulo.cac.features.store.fragments.Course
 import com.jorge.paulo.cac.features.store.fragments.Partner
 import com.jorge.paulo.cac.features.store.fragments.Home
 import com.jorge.paulo.cac.features.store.fragments.Instructor
+import com.jorge.paulo.cac.features.store.fragments.Message
+import com.jorge.paulo.cac.features.store.fragments.Profile
 import com.jorge.paulo.cac.features.store.fragments.Section
 
 
@@ -31,21 +36,36 @@ class StoreActivity : ComponentActivity() {
 
             AppTheme {
                 when (stateFragment.value.currentFragment) {
-                    Sections.HOME -> Home(navigate) { finish() }
+
+
                     Sections.STORE -> Section(navigate)
-                    Sections.INSTRUCTOR -> Instructor(navigate){
+
+                    Sections.PARTNER -> Partner(navigate)
+
+                    Sections.ADMINISTRATOR -> Administrator(navigate)
+
+                    Sections.NOTIFICATION -> Message(navigate)
+
+                    Sections.COURSE -> Course(navigate)
+
+                    Sections.CHALLENGE -> Challenge(navigate)
+
+                    Sections.PROFILE -> Profile(navigate)
+
+                    Sections.INSTRUCTOR -> Instructor(navigate) {
                         intent.action = ProfileScreens.INSTRUCTOR.screen
                         startActivity(intent)
                     }
-                    Sections.PARTNER -> Partner(navigate)
-                    Sections.CAC -> Cac(navigate){
+                    Sections.CAC -> Cac(navigate) {
                         intent.action = ProfileScreens.CAC.screen
                         startActivity(intent)
                     }
-                    Sections.ADMINISTRATOR -> TODO()
-                    Sections.NOTIFICATION -> TODO()
-                    Sections.COURSE -> TODO()
-                    Sections.CHALLENGE -> TODO()
+
+                    else -> {
+                        Home(navigate) {
+                            finish()
+                        }
+                    }
                 }
             }
         }

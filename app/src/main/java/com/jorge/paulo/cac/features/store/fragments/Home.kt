@@ -39,7 +39,7 @@ fun Home(
         topBar = {
             AppToolbar(
                 onBack = { onBack() },
-                title = "Dashboard"
+                title = Sections.HOME.name
             )
         },
         bottomBar = {
@@ -66,41 +66,43 @@ fun Home(
             }
 
         }) { it ->
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(MAX_CELLS),
             contentPadding = it
         ) {
             items(list) { section ->
-                AppCard(
-                    label = section.type,
-                    icon = section.icon,
-                    cardList = CardList.DEFAULT,
-                    numBadge = when (section) {
-                        Sections.HOME -> null
-                        Sections.STORE -> 3
-                        Sections.INSTRUCTOR -> 10
-                        Sections.ADMINISTRATOR -> null
-                        Sections.PARTNER -> 10
-                        Sections.CAC -> 100
-                        Sections.NOTIFICATION -> null
-                        Sections.COURSE -> 10
-                        Sections.CHALLENGE -> 3
-                    },
+                section.type?.let { label ->
+                    AppCard(
+                        label = label,
+                        icon = section.icon,
+                        cardList = CardList.DEFAULT,
+                        numBadge = when (section) {
+                            Sections.STORE -> 3
+                            Sections.INSTRUCTOR -> 10
+                            Sections.PARTNER -> 10
+                            Sections.CAC -> 100
+                            Sections.COURSE -> 10
+                            Sections.CHALLENGE -> 3
+                            else -> null
+                        },
 
-                    onClick = {
-                        when (section) {
-                            Sections.HOME -> navigate.onNavigate(Sections.HOME)
-                            Sections.STORE -> navigate.onNavigate(Sections.STORE)
-                            Sections.INSTRUCTOR -> navigate.onNavigate(Sections.INSTRUCTOR)
-                            Sections.PARTNER -> navigate.onNavigate(Sections.PARTNER)
-                            Sections.CAC -> navigate.onNavigate(Sections.CAC)
-                            Sections.ADMINISTRATOR -> TODO()
-                            Sections.NOTIFICATION -> TODO()
-                            Sections.COURSE -> TODO()
-                            Sections.CHALLENGE -> TODO()
+                        onClick = {
+                            when (section) {
+                                Sections.HOME -> navigate.onNavigate(Sections.HOME)
+                                Sections.STORE -> navigate.onNavigate(Sections.STORE)
+                                Sections.INSTRUCTOR -> navigate.onNavigate(Sections.INSTRUCTOR)
+                                Sections.PARTNER -> navigate.onNavigate(Sections.PARTNER)
+                                Sections.CAC -> navigate.onNavigate(Sections.CAC)
+                                Sections.ADMINISTRATOR -> navigate.onNavigate(Sections.ADMINISTRATOR)
+                                Sections.NOTIFICATION -> navigate.onNavigate(Sections.NOTIFICATION)
+                                Sections.COURSE -> navigate.onNavigate(Sections.COURSE)
+                                Sections.CHALLENGE -> navigate.onNavigate(Sections.CHALLENGE)
+                                Sections.PROFILE -> navigate.onNavigate(Sections.PROFILE)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }

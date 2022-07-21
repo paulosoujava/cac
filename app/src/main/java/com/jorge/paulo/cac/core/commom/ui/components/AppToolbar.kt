@@ -26,7 +26,7 @@ fun AppToolbar(
         AppButtons(
             appICons = { AppIcons(appIcons = AppIconList.BACK) },
             appButtons = AppButtonList.ICON, onClick = { onBack() },
-            colorButton = Black25
+            colorButton = Black
         )
 
         AppText(

@@ -65,22 +65,14 @@ fun ProfileCac(
             Column {
                 Row(
                     modifier = Modifier
-                        .background(
-                            brush = Brush.linearGradient(
-                                colors = listOf(
-                                    Black25,
-                                    Black,
-                                    Black50
-                                )
-                            )
-                        ),
+                        .background(Black),
                     verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.Center,
                 ) {
                     AppButtons(
                         appICons = { AppIcons(appIcons = AppIconList.BACK) },
                         appButtons = AppButtonList.ICON, onClick = { finish() },
-                        colorButton = Black25
+                        colorButton = Black
                     )
                     AsyncImage(
                         model = "https://escolaeducacao.com.br/wp-content/uploads/2019/05/download.jpeg",
