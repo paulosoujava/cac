@@ -2,25 +2,41 @@ package com.jorge.paulo.cac.features.store.fragments
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtonList
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtons
 import com.jorge.paulo.cac.core.commom.ui.components.AppCard
+import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
+import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
+import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
+import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
+import com.jorge.paulo.cac.core.commom.ui.components.AppText
+import com.jorge.paulo.cac.core.commom.ui.components.AppTextList
 import com.jorge.paulo.cac.core.commom.ui.components.AppToolbar
 import com.jorge.paulo.cac.core.commom.ui.components.CardList
 import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Green
+import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import com.jorge.paulo.cac.core.commom.ui.theme.Red700
+import com.jorge.paulo.cac.core.commom.ui.theme.White
 import com.jorge.paulo.cac.features.store.NavigateViewModel
 import com.jorge.paulo.cac.features.store.domain.Sections
 
@@ -32,8 +48,8 @@ fun Home(
     onBack: () -> Unit
 ) {
 
-
     val list = Sections.values().asList()
+
 
     Scaffold(
         topBar = {
@@ -41,6 +57,7 @@ fun Home(
                 onBack = { onBack() },
                 title = Sections.HOME.name
             )
+
         },
         bottomBar = {
             Row(
@@ -71,6 +88,7 @@ fun Home(
             columns = GridCells.Fixed(MAX_CELLS),
             contentPadding = it
         ) {
+
             items(list) { section ->
                 section.type?.let { label ->
                     AppCard(
@@ -89,6 +107,7 @@ fun Home(
 
                         onClick = {
                             when (section) {
+                                Sections.POST -> navigate.onNavigate(Sections.POST)
                                 Sections.HOME -> navigate.onNavigate(Sections.HOME)
                                 Sections.STORE -> navigate.onNavigate(Sections.STORE)
                                 Sections.INSTRUCTOR -> navigate.onNavigate(Sections.INSTRUCTOR)
@@ -105,5 +124,7 @@ fun Home(
                 }
             }
         }
+
+
     }
 }

@@ -55,6 +55,9 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Black50
 import com.jorge.paulo.cac.core.commom.ui.theme.Green
 import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
+import com.jorge.paulo.cac.core.commom.ui.theme.Red700
+import com.jorge.paulo.cac.core.commom.ui.theme.Red800
+import com.jorge.paulo.cac.core.commom.ui.theme.Red900
 import kotlin.math.min
 
 @Composable
@@ -282,8 +285,9 @@ fun ProfileStore(
 
                 AppDivider(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
                 IconWithText(appICons = AppIconList.SCHOOL, text = "Cursos")
-                Box {
+
                     AppBanner(
+                        backgroundColor = listOf(Red700, Red800, Red900),
                         countPage = 3,
                         onClick = {
                             viewModel.onEvent(AppAlertList.CONFIRMATION)
@@ -291,21 +295,20 @@ fun ProfileStore(
                         appBanner = AppBannerList.CARD,
                         labelBtn = "Inscrição"
                     )
-                }
+
 
 
                 AppDivider(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
                 IconWithText(appICons = AppIconList.SCHOOL, text = "Loja")
 
                 AppBanner(
+                    backgroundColor = listOf(Orange, Black, Green),
                     countPage = 3,
                     onClick = {
                         onProduct()
                     },
                     appBanner = AppBannerList.CARD,
-                    backgroundColor = listOf(Orange, Black, Green),
-                    cardHasFooter = false,
-                    labelBtn = "Acessar"
+                    labelBtn = "ver mais"
                 )
 
                 AppSpace(appSizes = AppSpaceList.LARGE)

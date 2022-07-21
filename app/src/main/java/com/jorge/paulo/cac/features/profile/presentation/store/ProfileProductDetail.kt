@@ -51,7 +51,6 @@ fun ProfileProductDetail(
             AppBanner(
                 countPage = 3,
                 appBanner = AppBannerList.IMAGE,
-                hasBackground = false,
                 onClick = {})
 
             Card(

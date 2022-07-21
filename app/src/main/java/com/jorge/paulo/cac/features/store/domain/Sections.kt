@@ -4,6 +4,7 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 
 
 enum class Sections(val type: String? = null, val icon: AppIconList? = null) {
+    POST("Postar", AppIconList.INFO),
     STORE("Loja", AppIconList.INFO),
     INSTRUCTOR("Instrutor", AppIconList.SCHOOL),
     ADMINISTRATOR("Administrador", AppIconList.SHARE),

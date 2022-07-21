@@ -18,6 +18,7 @@ import com.jorge.paulo.cac.features.store.fragments.Partner
 import com.jorge.paulo.cac.features.store.fragments.Home
 import com.jorge.paulo.cac.features.store.fragments.Instructor
 import com.jorge.paulo.cac.features.store.fragments.Message
+import com.jorge.paulo.cac.features.store.fragments.Post
 import com.jorge.paulo.cac.features.store.fragments.Profile
 import com.jorge.paulo.cac.features.store.fragments.Section
 
@@ -37,6 +38,8 @@ class StoreActivity : ComponentActivity() {
             AppTheme {
                 when (stateFragment.value.currentFragment) {
 
+
+                    Sections.POST -> Post(navigate)
 
                     Sections.STORE -> Section(navigate)
 

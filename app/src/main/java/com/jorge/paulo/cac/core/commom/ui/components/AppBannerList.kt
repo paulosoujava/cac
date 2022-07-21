@@ -16,8 +16,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,7 +57,6 @@ fun AppBanner(
     cardHasFooter: Boolean = true,
     onClick: () -> Unit,
     labelBtn: String = "",
-    hasBackground: Boolean = true
 ) {
 
     val state = rememberPagerState(initialPage = initialPage)
@@ -63,17 +66,7 @@ fun AppBanner(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .clip(Shapes.small)
-            .background(
-                if(hasBackground){
-                    if (cardHasFooter)
-                        Color.Red.copy(.6f)
-                    else
-                        Color.Black.copy(.6f)
-                }else{
-                    Color.Transparent
-                }
 
-            )
     ) {
         HorizontalPager(
             state = state,
@@ -99,7 +92,7 @@ fun AppBanner(
 }
 
 @Composable
-private fun PageIndicator(
+fun PageIndicator(
     totalPages: Int,
     currentPage: Int,
     modifier: Modifier = Modifier,

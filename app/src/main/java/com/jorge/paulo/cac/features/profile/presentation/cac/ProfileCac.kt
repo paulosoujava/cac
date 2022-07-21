@@ -211,7 +211,6 @@ fun ProfileCac(
                     AppBanner(
                         countPage = 3,
                         appBanner = AppBannerList.IMAGE,
-                        hasBackground = false,
                         onClick = { }
                     )
                     AppSpace(appSizes = AppSpaceList.LARGE)
