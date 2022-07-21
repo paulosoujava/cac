@@ -44,7 +44,10 @@ import com.jorge.paulo.cac.features.store.domain.Sections
 
 const val MAX_CELLS_INSTRUCTOR = 2
 @Composable
-fun Instructor(navigate: NavigateViewModel) {
+fun Instructor(
+    navigate: NavigateViewModel,
+    seeProfile: () -> Unit
+) {
     val list = mapOf(
         AppIconList.PISTOL to "Paulo Jorge oliveira",
         AppIconList.SHARE to "Renata de Souza",
@@ -162,7 +165,7 @@ fun Instructor(navigate: NavigateViewModel) {
                         label = section.second,
                         icon = section.first,
                         cardList = CardList.IMAGE,
-                        onClick = {}
+                        onClick = {seeProfile()}
                     )
                 }
             }

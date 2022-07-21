@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,6 +57,8 @@ import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
 import com.jorge.paulo.cac.features.about.AboutActivity
 import com.jorge.paulo.cac.features.store.StoreActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -166,14 +169,27 @@ class LoginActivity : ComponentActivity() {
                                     )
                                 }
                             }
+                            //TODO remover depois
+                            val scope = rememberCoroutineScope()
                             AppButtons(
-                                appButtons = AppButtonList.DEFAULT,
+                                appButtons = AppButtonList.LOADING,
                                 onClick = {
-                                   // viewModel.onEvent(LoginEvent.Login)
-                                    startActivity(Intent(this@LoginActivity, StoreActivity::class.java))
-                                    finish()
+                                    scope.launch {
+                                        delay(2000)
+                                        viewModel.onEvent(LoginEvent.Login)
+                                        startActivity(
+                                            Intent(
+                                                this@LoginActivity,
+                                                StoreActivity::class.java
+                                            )
+                                        )
+                                        finish()
+                                    }
                                 },
-                                label = state.value.label
+                                label = state.value.label,
+                                colorBorderButton = Black,
+                                colorLabel = Black,
+                                colorButton = Orange
                             )
                             AppSpace(appSizes = AppSpaceList.LARGE)
                         }
@@ -192,7 +208,7 @@ class LoginActivity : ComponentActivity() {
                         )
                         Column {
                             ItemMenu("Cadastro") {
-                             viewModel.onEvent(LoginEvent.Register)
+                                viewModel.onEvent(LoginEvent.Register)
                             }
                             ItemMenu("Sobre") {
                                 startActivity(Intent(this@LoginActivity, AboutActivity::class.java))
@@ -204,7 +220,6 @@ class LoginActivity : ComponentActivity() {
         }
     }
 }
-
 
 
 @Composable

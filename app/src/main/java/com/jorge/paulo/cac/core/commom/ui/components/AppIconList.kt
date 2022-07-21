@@ -23,6 +23,7 @@ enum class AppIconList(val icon: Int) {
     PHONE(R.drawable.deskphone),
     PISTOL(R.drawable.pistol),
     BACK(R.drawable.ic_baseline_keyboard_arrow_left_24),
+    ARROW_RIGHT(R.drawable.ic_baseline_keyboard_arrow_right_24),
     PLACE(R.drawable.ic_baseline_place_24),
     CONTACTS(R.drawable.ic_contacts_outline),
     SCHOOL(R.drawable.school),

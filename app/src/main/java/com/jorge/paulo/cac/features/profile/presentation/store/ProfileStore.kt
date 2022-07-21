@@ -1,11 +1,9 @@
 package com.jorge.paulo.cac.features.profile.presentation.store
 
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -23,12 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
 import com.jorge.paulo.cac.R
 import com.jorge.paulo.cac.core.commom.ui.components.AppAlert
 import com.jorge.paulo.cac.core.commom.ui.components.AppAlertList
@@ -40,24 +39,22 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppDefaultCard
 import com.jorge.paulo.cac.core.commom.ui.components.AppDivider
 import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
+import com.jorge.paulo.cac.core.commom.ui.components.AppImage
 import com.jorge.paulo.cac.core.commom.ui.components.AppMidia
-import com.jorge.paulo.cac.core.commom.ui.components.AppProfile
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
 import com.jorge.paulo.cac.core.commom.ui.components.AppText
 import com.jorge.paulo.cac.core.commom.ui.components.AppTextList
 import com.jorge.paulo.cac.core.commom.ui.components.AppToolbar
 import com.jorge.paulo.cac.core.commom.ui.components.IconWithText
-import com.jorge.paulo.cac.core.commom.ui.components.Type
 
-import com.jorge.paulo.cac.core.commom.ui.theme.AppTheme
+
 import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Black25
+import com.jorge.paulo.cac.core.commom.ui.theme.Black50
 import com.jorge.paulo.cac.core.commom.ui.theme.Green
 import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
-import com.jorge.paulo.cac.core.commom.ui.theme.White
-import com.jorge.paulo.cac.features.profile.ProfileActivity
 import kotlin.math.min
 
 @Composable
@@ -232,18 +229,29 @@ fun ProfileStore(
 
                 IconWithText(
                     appICons = AppIconList.PISTOL,
-                    text = "Conheça nossos instrutores"
+                    text = "Conheça nossos instrutores",
+                    subtitle = "clique na imagem para ver o perfil",
                 )
-                Column(Modifier.padding(start = 45.dp, end = 20.dp)) {
-                    repeat(5) {
-                        AppProfile(
-                            type = Type.PUBLIC,
-                            onActive = {},
-                            onInactive = {},
-                            seeProfile = {
+
+                Column(Modifier.padding(start = 5.dp, end = 5.dp)) {
+                    repeat(2) {
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            AppImage {
                                 onInstructor()
                             }
-                        )
+                            AppSpace(appSizes = AppSpaceList.MEDIUM)
+                            AppImage {
+                                onInstructor()
+                            }
+                            AppSpace(appSizes = AppSpaceList.MEDIUM)
+                            AppImage {
+                                onInstructor()
+                            }
+                        }
+                        AppSpace(appSizes = AppSpaceList.MEDIUM)
                     }
                 }
 
@@ -355,8 +363,8 @@ fun ProfileStore(
             }
         }
     }
-
 }
+
 
 
 

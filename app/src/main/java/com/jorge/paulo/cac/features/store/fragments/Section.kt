@@ -139,7 +139,6 @@ fun Section(navigate: NavigateViewModel) {
                 }
             }
 
-
             AppDivider(
                 modifier = Modifier.padding(
                     start = 10.dp,

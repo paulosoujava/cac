@@ -51,7 +51,7 @@ import com.jorge.paulo.cac.core.commom.ui.theme.White
 
 @Composable
 fun ProfileCac(
-    finish: () -> Unit
+    finish: () -> Unit,
 ) {
     Scaffold() {
         Card(

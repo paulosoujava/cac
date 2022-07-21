@@ -1,7 +1,6 @@
 package com.jorge.paulo.cac.features.store.fragments
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -81,7 +80,7 @@ fun Home(
                         Sections.STORE -> 3
                         Sections.INSTRUCTOR -> 10
                         Sections.ADMINISTRATOR -> null
-                        Sections.CLIENT -> 10
+                        Sections.PARTNER -> 10
                         Sections.CAC -> 100
                         Sections.NOTIFICATION -> null
                         Sections.COURSE -> 10
@@ -93,9 +92,9 @@ fun Home(
                             Sections.HOME -> navigate.onNavigate(Sections.HOME)
                             Sections.STORE -> navigate.onNavigate(Sections.STORE)
                             Sections.INSTRUCTOR -> navigate.onNavigate(Sections.INSTRUCTOR)
-                            Sections.CLIENT -> navigate.onNavigate(Sections.CLIENT)
+                            Sections.PARTNER -> navigate.onNavigate(Sections.PARTNER)
+                            Sections.CAC -> navigate.onNavigate(Sections.CAC)
                             Sections.ADMINISTRATOR -> TODO()
-                            Sections.CAC -> TODO()
                             Sections.NOTIFICATION -> TODO()
                             Sections.COURSE -> TODO()
                             Sections.CHALLENGE -> TODO()

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,14 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.jorge.paulo.cac.R
-import com.jorge.paulo.cac.core.commom.ui.components.AppAlert
-import com.jorge.paulo.cac.core.commom.ui.components.AppAlertList
 import com.jorge.paulo.cac.core.commom.ui.components.AppBanner
 import com.jorge.paulo.cac.core.commom.ui.components.AppBannerList
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtonList
@@ -40,21 +36,16 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppDivider
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
 import com.jorge.paulo.cac.core.commom.ui.components.AppMidia
-import com.jorge.paulo.cac.core.commom.ui.components.AppProfile
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
 import com.jorge.paulo.cac.core.commom.ui.components.AppText
 import com.jorge.paulo.cac.core.commom.ui.components.AppTextList
 import com.jorge.paulo.cac.core.commom.ui.components.AppToolbar
 import com.jorge.paulo.cac.core.commom.ui.components.IconWithText
-import com.jorge.paulo.cac.core.commom.ui.components.Type
 import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Black25
 import com.jorge.paulo.cac.core.commom.ui.theme.Elevations
-import com.jorge.paulo.cac.core.commom.ui.theme.Green
 import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
-import com.jorge.paulo.cac.core.commom.ui.theme.Orange
-import com.jorge.paulo.cac.core.commom.ui.theme.White
 import kotlin.math.min
 
 @Composable
@@ -103,14 +94,27 @@ fun ProfileInstructor(
                             text = "Paulo Jorge de Oliveira"
                         )
                     }
-                    Image(
-                        painterResource(id = R.drawable.bg),
-                        contentDescription = "image",
-                        contentScale = ContentScale.Crop,
+                    Row(
                         modifier = Modifier
-                            .size(120.dp)
-                            .clip(RoundedCornerShape(50))
-                    )
+                            .fillMaxWidth()
+                            .background(Black)
+                            .clip(
+                                RoundedCornerShape(50),
+                            )
+                            .padding(10.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painterResource(id = R.drawable.bg),
+                            contentDescription = "image",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(120.dp)
+                                .clip(RoundedCornerShape(10))
+                        )
+                    }
+
                 }
             }
             Column(

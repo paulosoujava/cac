@@ -8,7 +8,7 @@ enum class Sections(val type: String, val icon: AppIconList){
     STORE("Loja", AppIconList.INFO),
     INSTRUCTOR("Instrutor", AppIconList.SCHOOL),
     ADMINISTRATOR("Administrador", AppIconList.SHARE),
-    CLIENT("Clientes", AppIconList.ACCOUNT),
+    PARTNER("Sócios", AppIconList.ACCOUNT),
     CAC("Cacs", AppIconList.QRCODE),
     NOTIFICATION("Mensagem", AppIconList.WHATS),
     COURSE("Cursos", AppIconList.EMAIL),

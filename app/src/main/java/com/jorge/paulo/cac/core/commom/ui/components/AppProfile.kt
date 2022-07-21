@@ -46,22 +46,41 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Orange50
 import com.jorge.paulo.cac.core.commom.ui.theme.Red700
 import com.jorge.paulo.cac.core.commom.ui.theme.White
 
-enum class Type {
-    PUBLIC,
-    PRIVATE
-}
 
 @Composable
-fun AppProfile(
-    type: Type,
+fun AppCArdWithOptions(
     onInactive: () -> Unit,
     onActive: () -> Unit,
     seeProfile: () -> Unit,
 ) {
-    val width = if(type == Type.PUBLIC) 290 else 400
+
+    CardPrivate(
+        onInactive,
+        onActive,
+        seeProfile
+    )
+}
+
+
+@Composable
+private fun SeeProfile(onClick: () -> Unit) {
+    AppButtons(
+        colorLabel = LightGray,
+        label = "Ver Perfil",
+        appButtons = AppButtonList.TEXT,
+        onClick = { onClick() }
+    )
+}
+
+@Composable
+private fun CardPrivate(
+    onInactive: () -> Unit,
+    onActive: () -> Unit,
+    seeProfile: () -> Unit,
+) {
     Card(
         modifier = Modifier
-            .width(width.dp)
+            .width(400.dp)
             .padding(top = 8.dp, bottom = 8.dp),
         shape = RoundedCornerShape(20.dp),
         border = BorderStroke(2.dp, Black50)
@@ -95,9 +114,10 @@ fun AppProfile(
                         .size(60.dp)
                 )
 
-                Column(Modifier
-                    .padding(15.dp)
-                    .width(width.dp)
+                Column(
+                    Modifier
+                        .padding(15.dp)
+                        .width(400.dp)
                 ) {
                     AppText(
                         appTextTypes = AppTextList.TITLE,
@@ -111,59 +131,36 @@ fun AppProfile(
                             .padding(top = 10.dp, bottom = 10.dp),
                         color = Black25
                     )
-                    if (type == Type.PRIVATE) {
-                        AppText(
-                            appTextTypes = AppTextList.SMALL,
-                            text = "Opções",
-                            color = White
+                    AppText(
+                        appTextTypes = AppTextList.SMALL,
+                        text = "Opções",
+                        color = White
+                    )
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+
+                        AppButtons(
+                            colorLabel = Green,
+                            label = "Liberar",
+                            appButtons = AppButtonList.TEXT, onClick = { onActive() }
+                        )
+
+
+                        SeeProfile(onClick = { seeProfile() })
+
+
+                        AppButtons(
+                            colorLabel = Red700,
+                            label = "Bloquear",
+                            appButtons = AppButtonList.TEXT, onClick = { onInactive() }
                         )
                     }
-                    if (type == Type.PUBLIC) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.End
-                        ) {
-                            SeeProfile(onClick = { seeProfile() })
-                        }
-                    }
-                    if (type == Type.PRIVATE) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-
-                            AppButtons(
-                                colorLabel = Green,
-                                label = "Liberar",
-                                appButtons = AppButtonList.TEXT, onClick = { onActive() }
-                            )
-
-
-                            SeeProfile(onClick = { seeProfile() })
-
-
-                            AppButtons(
-                                colorLabel = Red700,
-                                label = "Bloquear",
-                                appButtons = AppButtonList.TEXT, onClick = { onInactive() }
-                            )
-                        }
-                    }
-
                 }
+
             }
         }
     }
-}
-
-
-@Composable
-private fun SeeProfile(onClick: () -> Unit) {
-    AppButtons(
-        colorLabel = LightGray,
-        label = "Ver Perfil",
-        appButtons = AppButtonList.TEXT,
-        onClick = { onClick() }
-    )
 }
