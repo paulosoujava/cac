@@ -4,8 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jorge.paulo.cac.core.commom.ui.components.AppAlert
+import com.jorge.paulo.cac.core.commom.ui.components.AppAlertList
 import com.jorge.paulo.cac.core.commom.ui.theme.AppTheme
 import com.jorge.paulo.cac.features.profile.ProfileActivity
 import com.jorge.paulo.cac.features.profile.presentation.ProfileScreens
@@ -28,16 +34,18 @@ class StoreActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+
             val navigate: NavigateViewModel = hiltViewModel()
             val stateFragment = navigate.event.collectAsState()
+
             val intent = Intent(
                 this@StoreActivity,
                 ProfileActivity::class.java
             )
 
             AppTheme {
-                when (stateFragment.value.currentFragment) {
 
+                when (stateFragment.value.currentFragment) {
 
                     Sections.POST -> Post(navigate)
 
@@ -65,11 +73,16 @@ class StoreActivity : ComponentActivity() {
                     }
 
                     else -> {
-                        Home(navigate) {
-                            finish()
-                        }
+                        Home(navigate,
+                            onDeleteAccount = {
+
+                            },
+                            onBack = { finish() }
+                        )
                     }
                 }
+
+
             }
         }
     }

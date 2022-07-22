@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -21,19 +22,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Green
 import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
+import com.jorge.paulo.cac.core.commom.ui.theme.Red700
+import com.jorge.paulo.cac.core.commom.ui.theme.Red900
 import com.jorge.paulo.cac.core.commom.ui.theme.Shapes
 import com.jorge.paulo.cac.core.commom.ui.theme.White
 
 enum class AppAlertList {
     INFO,
     REPORT,
-    CONFIRMATION
+    CONFIRMATION,
+    DELETE_ACCOUNT
 }
 
 @Composable
@@ -82,12 +87,29 @@ fun AppAlert(
                     )
                 }
             )
+        AppAlertList.DELETE_ACCOUNT -> {
+            Alert(
+                modifier = modifier,
+                background = White,
+                mutableInteractionSource = interactionSource,
+                onClose = onClose,
+                title = title,
+                slot = {
+                    ContentDeleteAccount(description = description) {
+                        onClick()
+                    }
+                }
+            )
+        }
     }
 }
+
 
 @Composable
 fun Alert(
     modifier: Modifier,
+    background: Color = LightGray,
+    colorText: Color = Black,
     mutableInteractionSource: MutableInteractionSource,
     onClose: () -> Unit,
     title: String,
@@ -96,7 +118,7 @@ fun Alert(
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
-                .background(LightGray)
+                .background(background)
                 .padding(15.dp)
         ) {
             Row(
@@ -107,19 +129,20 @@ fun Alert(
                 AppText(
                     appTextTypes = AppTextList.BODY,
                     text = title,
-                    color = Black,
+                    color = colorText,
                     modifier = Modifier.weight(8f)
                 )
-                Box(modifier = Modifier
-                    .border(1.dp, Black, shape = Shapes.large)
-                    .height(45.dp)
-                    .weight(1f)
-                    .clickable(
-                        interactionSource = mutableInteractionSource,
-                        indication = null
-                    ) {
-                        onClose()
-                    },
+                Box(
+                    modifier = Modifier
+                        .border(1.dp, Black, shape = Shapes.large)
+                        .height(45.dp)
+                        .weight(1f)
+                        .clickable(
+                            interactionSource = mutableInteractionSource,
+                            indication = null
+                        ) {
+                            onClose()
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     AppIcons(appIcons = AppIconList.CLOSE, color = Black)
@@ -199,5 +222,38 @@ private fun ContentAlertReport(
             colorBorderButton = Black.copy(alpha = .7f),
             label = "Reportar"
         )
+    }
+}
+
+@Composable
+fun ContentDeleteAccount(
+    description: String,
+    onConfirm: () -> Unit
+) {
+    Column {
+        AppText(
+            appTextTypes = AppTextList.BODY,
+            maxLines = 10,
+            color = Black,
+            text = description
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AppButtons(
+                appButtons = AppButtonList.DEFAULT,
+                onClick = {
+                    onConfirm()
+                },
+                colorLabel = White,
+                colorButton = Red900,
+                colorBorderButton = Red700.copy(alpha = .7f),
+                label = "DELETAR"
+            )
+        }
+
     }
 }

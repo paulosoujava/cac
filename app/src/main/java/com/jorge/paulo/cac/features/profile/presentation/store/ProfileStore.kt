@@ -16,15 +16,29 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
@@ -58,8 +72,19 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Orange
 import com.jorge.paulo.cac.core.commom.ui.theme.Red700
 import com.jorge.paulo.cac.core.commom.ui.theme.Red800
 import com.jorge.paulo.cac.core.commom.ui.theme.Red900
+import com.jorge.paulo.cac.core.commom.ui.theme.White
+import com.jorge.paulo.cac.features.store.fragments.TypeModal
+import kotlinx.coroutines.launch
 import kotlin.math.min
 
+enum class TypeModalHome {
+    REPORT,
+    INSCRIPTION,
+    NONE
+}
+
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProfileStore(
     finish: () -> Unit,
@@ -70,7 +95,47 @@ fun ProfileStore(
     val stateAlert = viewModel.state.collectAsState()
     val scrollState = rememberScrollState()
 
-    Box {
+    val type = remember { mutableStateOf(TypeModalHome.NONE) }
+    val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val scope = rememberCoroutineScope()
+
+
+    ModalBottomSheetLayout(
+        sheetShape = RoundedCornerShape(topEndPercent = 10, topStartPercent = 10),
+        sheetState = state,
+        sheetBackgroundColor = Black,
+        scrimColor = Black.copy(alpha = .6f),
+        sheetContent = {
+            when (type.value) {
+                TypeModalHome.REPORT -> {
+                    ContentModalHome(
+                        type.value,
+                        "Reportar este usuário",
+                        "Texto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativo",
+                        onCloseClick = {
+                            scope.launch {
+                                type.value = TypeModalHome.NONE
+                                scope.launch { state.hide() }
+                            }
+                        }
+                    )
+                }
+                else -> {
+                    ContentModalHome(
+                        type.value,
+                        "Titulo",
+                        "Mensagem",
+                        onCloseClick = {
+                            scope.launch {
+                                type.value = TypeModalHome.NONE
+                                scope.launch { state.hide() }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -78,7 +143,6 @@ fun ProfileStore(
         ) {
             Box(
                 modifier = Modifier
-
                     .fillMaxWidth()
                     .height(300.dp)
                     .background(Black25)
@@ -286,15 +350,18 @@ fun ProfileStore(
                 AppDivider(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp))
                 IconWithText(appICons = AppIconList.SCHOOL, text = "Cursos")
 
-                    AppBanner(
-                        backgroundColor = listOf(Red700, Red800, Red900),
-                        countPage = 3,
-                        onClick = {
-                            viewModel.onEvent(AppAlertList.CONFIRMATION)
-                        },
-                        appBanner = AppBannerList.CARD,
-                        labelBtn = "Inscrição"
-                    )
+                AppBanner(
+                    backgroundColor = listOf(Red700, Red800, Red900),
+                    countPage = 3,
+                    onClick = {
+                        type.value = TypeModalHome.INSCRIPTION
+                        scope.launch {
+                            state.show()
+                        }
+                    },
+                    appBanner = AppBannerList.CARD,
+                    labelBtn = "Inscrição"
+                )
 
 
 
@@ -316,7 +383,10 @@ fun ProfileStore(
                 AppButtons(
                     appButtons = AppButtonList.REPORT,
                     onClick = {
-                        viewModel.onEvent(AppAlertList.REPORT)
+                        type.value = TypeModalHome.REPORT
+                        scope.launch {
+                            state.show()
+                        }
                     }
                 )
             }
@@ -342,32 +412,139 @@ fun ProfileStore(
             )
         }
 
-        if (stateAlert.value.alertType != null) {
-            val title =
-                if (stateAlert.value.alertType != AppAlertList.REPORT) "Title" else "Reporte"
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Black.copy(alpha = .9f)),
-                contentAlignment =
-                if (stateAlert.value.alertType != AppAlertList.REPORT)
-                    Alignment.Center
-                else
-                    Alignment.TopCenter
-            ) {
-                AppAlert(
-                    modifier = Modifier.padding(20.dp),
-                    appAlertList = stateAlert.value.alertType!!,
-                    title = title,
-                    description = "Texto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativoTexto explicativo Texto explicativo Texto explicativo Texto explicativo",
-                    onClose = { viewModel.closeAlert() },
-                    onClick = {}
-                )
-            }
-        }
     }
+
 }
 
+@Composable
+private fun ContentModalHome(
+    typeModal: TypeModalHome,
+    title: String,
+    message: String,
+    onCloseClick: () -> Unit
+) {
+    Column(
+        Modifier
+            .height(400.dp)
+            .padding(20.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AppText(
+                modifier = Modifier.weight(4f),
+                appTextTypes = AppTextList.TITLE,
+                color = White,
+                text = title
+            )
+            AppButtons(
+                modifier = Modifier.weight(1f),
+                colorButton = Color.Transparent,
+                colorLabel = White,
+                appButtons = AppButtonList.ICON,
+                appICons = { AppIcons(appIcons = AppIconList.CLOSE, color = LightGray) },
+                onClick = { onCloseClick() })
+        }
+        AppDivider(
+            Modifier.padding(10.dp)
+        )
+
+        when (typeModal) {
+            TypeModalHome.REPORT -> {
+                var text by remember { mutableStateOf("") }
+
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val maxChar = 31
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, end = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        AppText(
+                            appTextTypes = AppTextList.SMALL,
+                            text = "máximo de $maxChar caracteres",
+                            color = if (text.length == maxChar) Red700 else LightGray
+                        )
+                    }
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10))
+                            .background(LightGray)
+
+                            .height(140.dp),
+                        value = text,
+                        onValueChange = {
+                            if (it.length <= maxChar) text = it
+                        },
+                        maxLines = 10,
+                        textStyle = TextStyle(color = Color.Black),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            textColor = Black,
+                            cursorColor = Black,
+                            backgroundColor = White
+                        )
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, end = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        AppText(
+                            appTextTypes = AppTextList.SMALL,
+                            text = "${text.length} / $maxChar",
+                            color = if (text.length == maxChar) Red700 else LightGray
+                        )
+                    }
+                    AppDivider(
+                        Modifier.padding(10.dp)
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        AppButtons(
+                            appButtons = AppButtonList.ROUNDED,
+                            onClick = {},
+                            colorLabel = White,
+                            colorBorderButton = White.copy(alpha = .7f),
+                            label = "Reportar"
+                        )
+                    }
+                }
+            }
+            else ->
+                Column {
+                    AppText(
+                        modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+                        appTextTypes = AppTextList.BODY,
+                        text = message,
+                        color = LightGray
+                    )
+                    AppDivider(
+                        Modifier.padding(10.dp)
+                    )
+                }
+
+        }
+
+    }
+}
 
 
 

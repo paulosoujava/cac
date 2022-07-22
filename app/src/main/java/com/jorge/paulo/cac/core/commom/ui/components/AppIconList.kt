@@ -31,6 +31,10 @@ enum class AppIconList(val icon: Int) {
     CLOSE(R.drawable.ic_baseline_close_24),
     ARROW_DROP_DOWN(R.drawable.ic_baseline_arrow_drop_down_24),
     SHARE(R.drawable.ic_baseline_share_24),
+    EDIT(R.drawable.ic_baseline_edit_24),
+    ARROW_UP(R.drawable.ic_baseline_keyboard_arrow_down_24),
+    ARROW_DOWN(R.drawable.ic_baseline_keyboard_arrow_up_24),
+    DELETE(R.drawable.ic_baseline_delete_24),
 }
 
 @Composable

@@ -33,6 +33,7 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
 import com.jorge.paulo.cac.core.commom.ui.theme.Shapes
 import com.jorge.paulo.cac.core.commom.ui.theme.White
+import com.jorge.paulo.cac.features.store.fragments.Post
 
 
 import com.jorge.paulo.cac.features.timeline.presentation.timelines.TimelineActivity
