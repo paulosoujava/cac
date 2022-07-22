@@ -10,10 +10,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -33,11 +39,13 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
 import com.jorge.paulo.cac.core.commom.ui.theme.Shapes
 import com.jorge.paulo.cac.core.commom.ui.theme.White
-import com.jorge.paulo.cac.features.store.fragments.Post
 
 
 import com.jorge.paulo.cac.features.timeline.presentation.timelines.TimelineActivity
 import dagger.hilt.android.AndroidEntryPoint
+import me.onebone.toolbar.CollapsingToolbarScaffold
+import me.onebone.toolbar.ScrollStrategy
+import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -54,14 +62,13 @@ class SplashActivity : ComponentActivity() {
                     startActivity(Intent(this@SplashActivity, TimelineActivity::class.java))
                     finish()
                 }
-
             }
         }
     }
 }
 
 @Composable
-private fun  Content(
+private fun Content(
     state: State<SplashState>,
     onFinish: () -> Unit
 ) {

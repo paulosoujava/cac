@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -37,6 +40,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.jorge.paulo.cac.R
 import com.jorge.paulo.cac.core.commom.ui.theme.Black25
+import com.jorge.paulo.cac.core.commom.ui.theme.Elevations
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
 import com.jorge.paulo.cac.core.commom.ui.theme.Shapes
 import com.jorge.paulo.cac.core.commom.ui.theme.White
@@ -51,11 +55,12 @@ enum class AppBannerList {
 @Composable
 fun AppBanner(
     initialPage: Int = 0,
+    widthImage: Int = 250,
     countPage: Int,
     appBanner: AppBannerList,
     backgroundColor: List<Color> = listOf(Black25),
     cardHasFooter: Boolean = true,
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
     labelBtn: String = "",
 ) {
 
@@ -81,7 +86,7 @@ fun AppBanner(
                     cardHasFooter = cardHasFooter,
                     labelBtn = labelBtn
                 )
-                AppBannerList.IMAGE -> JustImage(onClick = onClick)
+                AppBannerList.IMAGE -> JustImage(onClick = onClick, widthImage = widthImage)
             }
         }
         Box(modifier = Modifier.padding(20.dp)) {
@@ -139,9 +144,14 @@ fun PageIndicator(
 
 
 @Composable
-private fun JustImage(onClick: () -> Unit) {
+private fun JustImage(
+    onClick: () -> Unit,
+    widthImage: Int
+) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -151,10 +161,11 @@ private fun JustImage(onClick: () -> Unit) {
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(250.dp)
+                .width(widthImage.dp)
                 .padding(end = 8.dp)
                 .clickable { onClick() }
-        )
 
+        )
     }
 }
 
@@ -211,7 +222,7 @@ private fun JustCard(
         ) {
             AppButtons(
                 appButtons = AppButtonList.SOLID,
-                onClick = {onClick()},
+                onClick = { onClick() },
                 label = labelBtn,
                 colorLabel = White
             )

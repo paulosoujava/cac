@@ -12,5 +12,6 @@ val Shapes = Shapes(
 )
 
 enum class Elevations(val size: Dp){
-    DEFAULT(12.dp)
+    DEFAULT(12.dp),
+    MEDIUM(24.dp)
 }

@@ -209,6 +209,7 @@ fun ProfileCac(
                         text = "Certificações"
                     )
                     AppBanner(
+                        widthImage = 400,
                         countPage = 3,
                         appBanner = AppBannerList.IMAGE,
                         onClick = { }

@@ -67,6 +67,7 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Shapes
 import com.jorge.paulo.cac.core.commom.ui.theme.White
 import com.jorge.paulo.cac.features.about.AboutActivity
 import com.jorge.paulo.cac.features.login.presentation.LoginActivity
+import com.jorge.paulo.cac.features.registration.RegistrationActivity
 import com.jorge.paulo.cac.features.timeline.presentation.util.TabPages
 import com.jorge.paulo.cac.features.util.Permissions
 import com.journeyapps.barcodescanner.ScanContract
@@ -98,7 +99,18 @@ class TimelineActivity : ComponentActivity() {
 
             val scanLauncher = rememberLauncherForActivityResult(
                 contract = ScanContract(),
-                onResult = { result -> Log.d("LOG", "scanned code: ${result.contents}") }
+                onResult = { result ->
+                    if (result != null) {
+                        Log.d("LOG", "scanned code: ${result.contents}")
+                        startActivity(
+                            Intent(
+                                this@TimelineActivity,
+                                RegistrationActivity::class.java
+                            )
+                        )
+
+                    }
+                }
             )
             val skipHalfExpanded by remember { mutableStateOf(false) }
 

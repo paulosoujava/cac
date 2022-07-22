@@ -97,10 +97,9 @@ fun ProfileInstructor(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .clip(RoundedCornerShape(topStartPercent = 10, topEndPercent = 10))
+                            .padding(start = 1.dp, end = 1.dp)
                             .background(Black)
-                            .clip(
-                                RoundedCornerShape(50),
-                            )
                             .padding(10.dp),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
@@ -188,7 +187,7 @@ fun ProfileInstructor(
                     items(5) {
                         Card(
                             elevation = Elevations.DEFAULT.size,
-                            backgroundColor = Black.copy(alpha = .6f),
+                            backgroundColor = Black.copy(alpha = .9f),
                             shape = RoundedCornerShape(5),
                             modifier = Modifier
                                 .size(320.dp, 350.dp)
@@ -233,15 +232,15 @@ fun ProfileInstructor(
                     text = "Certificações"
                 )
 
-                Container(modifier = Modifier.background(Black.copy(alpha = .7f))) {
-                    AppSpace(appSizes = AppSpaceList.MEDIUM)
-                    AppBanner(
-                        countPage = 3,
-                        appBanner = AppBannerList.IMAGE,
-                        onClick = { }
-                    )
 
-                }
+                AppSpace(appSizes = AppSpaceList.MEDIUM)
+                AppBanner(
+                    countPage = 3,
+                    appBanner = AppBannerList.IMAGE,
+                    widthImage = 400
+                )
+
+
                 Container {
                     AppDivider(
                         modifier = Modifier

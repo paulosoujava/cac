@@ -61,9 +61,7 @@ fun AppDefaultCard(
                             color = Green
                         )
                     }
-
                 }
-
             }
             AnimatedVisibility(visible = hasWinner) {
                 AsyncImage(

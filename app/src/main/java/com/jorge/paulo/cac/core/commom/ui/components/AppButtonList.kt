@@ -67,6 +67,7 @@ fun AppButtons(
     appICons: @Composable () -> Unit = {},
 ) {
     when (appButtons) {
+
         AppButtonList.TEXT -> {
             TextButton(
                 onClick = onClick,
@@ -79,6 +80,7 @@ fun AppButtons(
                 )
             }
         }
+
         AppButtonList.ROUNDED -> {
 
             TextButton(
@@ -158,11 +160,7 @@ fun AppButtons(
         AppButtonList.DEFAULT -> {
             Button(
                 onClick = { onClick() },
-                modifier = Modifier.padding(
-                    start = 60.dp,
-                    end = 60.dp,
-                    top = 20.dp
-                ),
+                modifier = modifier,
                 colors = ButtonDefaults.buttonColors(
                     contentColor = Orange,
                     backgroundColor = colorButton
