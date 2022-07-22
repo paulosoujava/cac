@@ -17,10 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -34,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,7 +42,7 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppButtonList
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtons
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
-import com.jorge.paulo.cac.core.commom.ui.components.AppInputEmail
+import com.jorge.paulo.cac.core.commom.ui.components.AppInputDefault
 import com.jorge.paulo.cac.core.commom.ui.components.AppInputPassword
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
@@ -77,12 +76,11 @@ class LoginActivity : ComponentActivity() {
                     bottomBar = {
                         Column(
                             modifier = Modifier
-                                .padding(start = 5.dp, end = 5.dp)
                                 .fillMaxWidth()
                                 .clip(
                                     RoundedCornerShape(
-                                        topStart = 30.dp,
-                                        topEnd = 30.dp,
+                                        topStart = 10.dp,
+                                        topEnd = 10.dp,
                                     )
                                 )
                                 .background(Black50.copy(alpha = .98f)),
@@ -132,22 +130,28 @@ class LoginActivity : ComponentActivity() {
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                AppInputEmail(
-                                    onValueChange = { valueEmail = it },
-                                    valueEmail
+                                AppInputDefault(
+                                    onValueChange = {
+                                        valueEmail = it
+                                    },
+                                    value = valueEmail,
+                                    label = "digite o email ",
+                                    keyboardType = KeyboardType.Email,
+                                    modifier = Modifier.padding(start =45.dp, end = 45.dp, bottom = 15.dp)
                                 )
                                 AnimatedVisibility(visible = !state.value.recovery) {
                                     AppInputPassword(
-                                        onValueChange = { valuePass = it },
-                                        valuePass,
-                                        label = "Senha"
+                                        onTextChanged = { valuePass = it },
+                                        text = valuePass,
+                                        label = "Senha",
+                                        modifier = Modifier.padding(start =45.dp, end = 45.dp)
                                     )
                                 }
                                 AnimatedVisibility(visible = state.value.login) {
                                     Row(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(end = 60.dp, top = 10.dp),
+                                            .padding(end = 60.dp, bottom = 25.dp),
                                         horizontalArrangement = Arrangement.End
                                     ) {
                                         AppButtons(
@@ -163,10 +167,14 @@ class LoginActivity : ComponentActivity() {
                                 }
                                 AnimatedVisibility(visible = state.value.register) {
                                     AppInputPassword(
-                                        onValueChange = { valuePassRep = it },
-                                        valuePassRep,
-                                        label = "Rep. Senha"
+                                        onTextChanged = {
+                                            valuePassRep = it
+                                        },
+                                        text = valuePassRep,
+                                        label = "Rep. Senha",
+                                        modifier = Modifier.padding(start =45.dp, end = 45.dp, bottom = 15.dp)
                                     )
+
                                 }
                             }
                             //TODO remover depois

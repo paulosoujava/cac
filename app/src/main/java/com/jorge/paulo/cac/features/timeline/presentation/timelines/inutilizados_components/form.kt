@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtonList
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtons
-import com.jorge.paulo.cac.core.commom.ui.components.AppInput
+import com.jorge.paulo.cac.core.commom.ui.components.AppInputDefault
 import com.jorge.paulo.cac.core.commom.ui.components.AppInputEmail
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
@@ -52,12 +52,12 @@ fun Form(
                 maxLines = 3,
                 text = "Informe os campos abaixo:"
             )
-            AppInput(
+            AppInputDefault(
                 onValueChange = { valueName = it },
                 value = valueName,
                 label = "Seu nome"
             )
-            AppInput(
+            AppInputDefault(
                 onValueChange = { valueCpf = it },
                 value = valueCpf,
                 label = "cpf"
