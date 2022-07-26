@@ -33,7 +33,8 @@
         </activity>
         <activity
             android:name=".features.store.StoreActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".features.timeline.presentation.timelines.TimelineActivity"

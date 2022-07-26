@@ -7,15 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jorge.paulo.cac.core.commom.ui.components.AppToolbar
 import com.jorge.paulo.cac.features.store.NavigateViewModel
-import com.jorge.paulo.cac.features.store.domain.Sections
+import com.jorge.paulo.cac.features.store.domain.Fragments
 
 @Composable
-fun Course(navigate: NavigateViewModel
+fun Message(navigate: NavigateViewModel
 ) {
     Scaffold(
         topBar = {
             AppToolbar(
-                onBack = { navigate.onNavigate(Sections.HOME) },
+                onBack = { navigate.onNavigate(Fragments.HOME) },
                 title = "Title")
         }
     ) {

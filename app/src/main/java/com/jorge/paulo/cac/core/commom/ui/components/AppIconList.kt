@@ -30,7 +30,6 @@ enum class AppIconList(val icon: Int) {
     SCHOOL(R.drawable.school),
     REPORT(R.drawable.ic_baseline_report_24),
     CLOSE(R.drawable.ic_baseline_close_24),
-    ARROW_DROP_DOWN(R.drawable.ic_baseline_arrow_drop_down_24),
     SHARE(R.drawable.ic_baseline_share_24),
     EDIT(R.drawable.ic_baseline_edit_24),
     ARROW_UP(R.drawable.ic_baseline_keyboard_arrow_down_24),
@@ -43,6 +42,9 @@ enum class AppIconList(val icon: Int) {
     PARTNER(R.drawable.ic_baseline_supervisor_account_24),
     NOTIFICATION(R.drawable.ic_baseline_circle_notifications_24),
     CHALLENGE(R.drawable.ic_baseline_all_inclusive_24),
+    DASHBOARD(R.drawable.ic_baseline_dashboard_24),
+    CAMERA(R.drawable.ic_baseline_photo_camera_24),
+    ADD(R.drawable.ic_baseline_add_24),
 }
 
 @Composable

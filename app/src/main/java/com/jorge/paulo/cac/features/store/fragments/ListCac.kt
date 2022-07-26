@@ -7,13 +7,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +34,7 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppToolbar
 import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Black50
 import com.jorge.paulo.cac.features.store.NavigateViewModel
-import com.jorge.paulo.cac.features.store.domain.Sections
+import com.jorge.paulo.cac.features.store.domain.Fragments
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -56,7 +53,7 @@ fun Cac(
         scrollStrategy = ScrollStrategy.EnterAlways, // EnterAlways, EnterAlwaysCollapsed, ExitUntilCollapsed are available,
         toolbar = {
             Column {
-                AppToolbar(onBack = { navigate.onNavigate(Sections.HOME) }, title = "Cac's")
+                AppToolbar(onBack = { navigate.onNavigate(Fragments.HOME) }, title = "Cac's")
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -81,8 +78,8 @@ fun Cac(
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStartPercent = 50,
-                                bottomStartPercent = 50,
+                                topStartPercent = 10,
+                                bottomStartPercent = 40,
                                 bottomEndPercent = 10,
                                 topEndPercent = 10
                             )
@@ -95,16 +92,13 @@ fun Cac(
                         model = "https://escolaeducacao.com.br/wp-content/uploads/2019/05/download.jpeg",
                         placeholder = painterResource(R.drawable.placeholder),
                         contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(50))
-                            .border(1.dp, Black50, shape = RoundedCornerShape(50))
-                            .size(90.dp)
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.weight(2f)
 
                     )
                     Column(
                         Modifier
-                            .weight(3f)
+                            .weight(2f)
                             .padding(start = 10.dp)
                     ) {
                         AppText(appTextTypes = AppTextList.BODY, text = "NAME DO CABRA")
@@ -114,7 +108,10 @@ fun Cac(
                             color = Color.LightGray
                         )
                     }
-                    AppIcons(appIcons = AppIconList.ARROW_RIGHT, color = Color.LightGray)
+                    AppIcons(
+                        modifier = Modifier.weight(1f),
+                        appIcons = AppIconList.ARROW_RIGHT,
+                        color = Color.LightGray)
 
                 }
             }

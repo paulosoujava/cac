@@ -1,8 +1,9 @@
 package com.jorge.paulo.cac.features.store
 
-import com.jorge.paulo.cac.features.store.domain.Sections
+import com.jorge.paulo.cac.features.store.domain.Fragments
 
 
 data class StateStore(
-   var currentFragment: Sections = Sections.HOME
+   var currentFragment: Fragments = Fragments.HOME
+
 )

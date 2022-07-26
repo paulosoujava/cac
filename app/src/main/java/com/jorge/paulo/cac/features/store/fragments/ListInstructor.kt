@@ -2,35 +2,29 @@ package com.jorge.paulo.cac.features.store.fragments
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtonList
 import com.jorge.paulo.cac.core.commom.ui.components.AppButtons
 import com.jorge.paulo.cac.core.commom.ui.components.AppCard
 import com.jorge.paulo.cac.core.commom.ui.components.AppDivider
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
+import com.jorge.paulo.cac.core.commom.ui.components.AppInputDefault
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
 import com.jorge.paulo.cac.core.commom.ui.components.AppText
@@ -41,31 +35,31 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Black
 import com.jorge.paulo.cac.core.commom.ui.theme.Green
 import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import com.jorge.paulo.cac.core.commom.ui.theme.Orange
-import com.jorge.paulo.cac.core.commom.ui.theme.White
 import com.jorge.paulo.cac.features.store.NavigateViewModel
-import com.jorge.paulo.cac.features.store.domain.Sections
+import com.jorge.paulo.cac.features.store.domain.Fragments
 
-const val MAX_CELLS_SECTION = 2
+const val MAX_CELLS_INSTRUCTOR = 2
 
 @Composable
-fun Section(navigate: NavigateViewModel) {
+fun Instructor(
+    navigate: NavigateViewModel,
+    seeProfile: () -> Unit
+) {
     val list = mapOf(
-        AppIconList.PISTOL to "Armas",
-        AppIconList.SHARE to "Roupas",
-        AppIconList.PLACE to "Acessórios"
+        AppIconList.PISTOL to "Paulo Jorge oliveira",
+        AppIconList.SHARE to "Renata de Souza",
+        AppIconList.PLACE to "Malu Machado"
     )
-
     val visible = remember { mutableStateOf(false) }
-    var text = remember { mutableStateOf(TextFieldValue("")) }
-
+    var text = remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
             AppToolbar(
                 onBack = {
-                    navigate.onNavigate(Sections.HOME)
+                    navigate.onNavigate(Fragments.HOME)
                 },
-                title = "Loja"
+                title = "Instrutores"
             )
         }
     ) {
@@ -81,17 +75,18 @@ fun Section(navigate: NavigateViewModel) {
             ) {
                 AppText(
                     appTextTypes = AppTextList.BODY,
-                    text = "Crie aqui seções de lojas"
+                    text = "Cadastro de instrutores e acesso"
                 )
                 AppButtons(
-                    label = if (visible.value) "Fechar" else "Criar uma seção",
+                    label = if (visible.value) "Fechar" else "Novo",
                     colorBorderButton = Orange,
                     appButtons = AppButtonList.ROUNDED,
                     onClick = { visible.value = !visible.value })
             }
             AnimatedVisibility(visible = visible.value) {
-                Box(Modifier
-                    .background(Black.copy(alpha = .9f)),
+                Box(
+                    Modifier
+                        .background(Black.copy(alpha = .9f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(
@@ -100,30 +95,27 @@ fun Section(navigate: NavigateViewModel) {
                             .fillMaxWidth()
                     ) {
 
-                        OutlinedTextField(
-                            value = text.value,
+                        AppInputDefault(
                             onValueChange = {
                                 text.value = it
                             },
-                            textStyle = TextStyle(
-                                color = White
-                            ),
-                            label = {
-                                AppText(
-                                    appTextTypes = AppTextList.SMALL,
-                                    text = "Nome da seção",
-                                    color = White
-                                )
-                            },
-                            colors = TextFieldDefaults.outlinedTextFieldColors(
-                                cursorColor = White,
-                                focusedBorderColor = LightGray,
-                                unfocusedBorderColor = White
-                            ),
-                            modifier = Modifier.fillMaxWidth()
+                            value = text.value,
+                            label = "digite o email ",
+                            keyboardType = KeyboardType.Email
                         )
 
                         AppSpace(appSizes = AppSpaceList.SMALL)
+
+                        AppInputDefault(
+                            onValueChange = {
+                                text.value = it
+                            },
+                            value = text.value,
+                            label = "digite o CPF ",
+                            keyboardType = KeyboardType.Number
+                        )
+                        AppSpace(appSizes = AppSpaceList.SMALL)
+
                         Row(
                             horizontalArrangement = Arrangement.End,
                             modifier = Modifier.fillMaxWidth()
@@ -138,7 +130,6 @@ fun Section(navigate: NavigateViewModel) {
                     }
                 }
             }
-
             AppDivider(
                 modifier = Modifier.padding(
                     start = 10.dp,
@@ -151,7 +142,7 @@ fun Section(navigate: NavigateViewModel) {
             AppText(
                 modifier = Modifier.padding(start = 15.dp),
                 appTextTypes = AppTextList.TITLE,
-                text = "Seções"
+                text = "Instrutores"
             )
             AppText(
                 modifier = Modifier.padding(start = 15.dp, bottom = 20.dp),
@@ -161,16 +152,15 @@ fun Section(navigate: NavigateViewModel) {
             )
 
             LazyVerticalGrid(
-                columns = GridCells.Fixed(MAX_CELLS),
+                columns = GridCells.Fixed(MAX_CELLS_INSTRUCTOR),
                 contentPadding = it
             ) {
                 items(list.toList()) { section ->
                     AppCard(
-                        modifier = Modifier.clickable { },
                         label = section.second,
                         icon = section.first,
-                        cardList = CardList.DEFAULT,
-                        onClick = {}
+                        cardList = CardList.IMAGE,
+                        onClick = { seeProfile() }
                     )
                 }
             }

@@ -15,11 +15,13 @@ import com.jorge.paulo.cac.core.commom.ui.theme.White
 
 @Composable
 fun AppToolbar(
+    modifier: Modifier = Modifier,
     onBack: () -> Unit,
     title: String
 ) {
 
     TopAppBar(
+        modifier = modifier,
         contentColor = Black,
         elevation = 8.dp
     ) {

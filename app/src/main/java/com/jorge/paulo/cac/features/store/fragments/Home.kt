@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberModalBottomSheetState
@@ -40,7 +39,8 @@ import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import com.jorge.paulo.cac.core.commom.ui.theme.Red700
 import com.jorge.paulo.cac.core.commom.ui.theme.White
 import com.jorge.paulo.cac.features.store.NavigateViewModel
-import com.jorge.paulo.cac.features.store.domain.Sections
+import com.jorge.paulo.cac.features.store.domain.Fragments
+import com.jorge.paulo.cac.features.store.domain.LabelIconOfHome
 import kotlinx.coroutines.launch
 
 const val MAX_CELLS = 2
@@ -56,10 +56,11 @@ enum class TypeModal {
 fun Home(
     navigate: NavigateViewModel,
     onDeleteAccount: () -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onClick: (String?) -> Unit,
 ) {
 
-    val list = Sections.values().asList()
+    val list = LabelIconOfHome.values().asList()
     val type = remember { mutableStateOf(TypeModal.NONE) }
     val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
@@ -69,7 +70,7 @@ fun Home(
         topBar = {
             AppToolbar(
                 onBack = { onBack() },
-                title = Sections.HOME.name
+                title = "DASHBOARD"
             )
 
         },
@@ -91,6 +92,7 @@ fun Home(
                         scope.launch { state.show() }
                     }
                 )
+                AppIcons(appIcons = AppIconList.DASHBOARD, color = LightGray)
 
                 AppButtons(
                     label = "DESLOGAR",
@@ -146,48 +148,51 @@ fun Home(
                 columns = GridCells.Fixed(MAX_CELLS),
                 contentPadding = it
             ) {
-
-                items(list) { section ->
-                    section.type?.let { label ->
+                items(list) { fr ->
+                    val (label, icon)= labelAndIconSectionHome(fr)
+                    label?.let { it1 ->
                         AppCard(
-                            label = label,
-                            icon = section.icon,
+                            label = it1,
+                            icon = icon,
                             cardList = CardList.DEFAULT,
-                            numBadge = when (section) {
-                                Sections.STORE -> 3
-                                Sections.INSTRUCTOR -> 10
-                                Sections.PARTNER -> 10
-                                Sections.CAC -> 100
-                                Sections.COURSE -> 10
-                                Sections.CHALLENGE -> 3
-                                else -> null
-                            },
-
-                            onClick = {
-                                when (section) {
-                                    Sections.POST -> navigate.onNavigate(Sections.POST)
-                                    Sections.HOME -> navigate.onNavigate(Sections.HOME)
-                                    Sections.STORE -> navigate.onNavigate(Sections.STORE)
-                                    Sections.INSTRUCTOR -> navigate.onNavigate(Sections.INSTRUCTOR)
-                                    Sections.PARTNER -> navigate.onNavigate(Sections.PARTNER)
-                                    Sections.CAC -> navigate.onNavigate(Sections.CAC)
-                                    Sections.ADMINISTRATOR -> navigate.onNavigate(Sections.ADMINISTRATOR)
-                                    Sections.NOTIFICATION -> navigate.onNavigate(Sections.NOTIFICATION)
-                                    Sections.COURSE -> navigate.onNavigate(Sections.COURSE)
-                                    Sections.CHALLENGE -> navigate.onNavigate(Sections.CHALLENGE)
-                                    Sections.PROFILE -> navigate.onNavigate(Sections.PROFILE)
-                                }
-                            }
+                            numBadge = numBadge(fr),
+                            onClick ={onClick(fr.name)}
                         )
+                    }
                     }
                 }
             }
         }
     }
 
+private fun numBadge(fragments: LabelIconOfHome): Int?{
+   return when (fragments) {
+       LabelIconOfHome.STORE -> 3
+       LabelIconOfHome.INSTRUCTOR -> 10
+       LabelIconOfHome.PARTNER -> 10
+       LabelIconOfHome.CAC -> 100
+       LabelIconOfHome.COURSE -> 10
+       LabelIconOfHome.CHALLENGE -> 3
+        else -> null
+    }
+}
+private fun labelAndIconSectionHome(fragments: LabelIconOfHome):Pair<String?, AppIconList?>  {
+    return when( fragments){
+        LabelIconOfHome.POST -> Pair(LabelIconOfHome.POST.type, LabelIconOfHome.POST.icon)
+        LabelIconOfHome.STORE ->   Pair(LabelIconOfHome.STORE.type, LabelIconOfHome.STORE.icon)
+        LabelIconOfHome.INSTRUCTOR ->  Pair(LabelIconOfHome.INSTRUCTOR.type, LabelIconOfHome.INSTRUCTOR.icon)
+        LabelIconOfHome.ADMINISTRATOR ->  Pair(LabelIconOfHome.ADMINISTRATOR.type, LabelIconOfHome.ADMINISTRATOR.icon)
+        LabelIconOfHome.PARTNER ->   Pair(LabelIconOfHome.PARTNER.type, LabelIconOfHome.PARTNER.icon)
+        LabelIconOfHome.CAC ->   Pair(LabelIconOfHome.CAC.type, LabelIconOfHome.CAC.icon)
+        LabelIconOfHome.NOTIFICATION ->  Pair(LabelIconOfHome.NOTIFICATION.type, LabelIconOfHome.NOTIFICATION.icon)
+        LabelIconOfHome.COURSE ->   Pair(LabelIconOfHome.COURSE.type, LabelIconOfHome.COURSE.icon)
+        LabelIconOfHome.CHALLENGE ->  Pair(LabelIconOfHome.CHALLENGE.type, LabelIconOfHome.CHALLENGE.icon)
+        LabelIconOfHome.PROFILE ->  Pair(LabelIconOfHome.PROFILE.type, LabelIconOfHome.PROFILE.icon)
+        
+    }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+
 @Composable
 private fun ContentModal(
     title: String,
