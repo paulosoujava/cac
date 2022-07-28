@@ -83,6 +83,11 @@ fun Course(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
+                            .padding(
+                                start = 8.dp,
+                                end = 8.dp,
+                                top = 10.dp
+                            )
                             .fillMaxWidth()
                             .clip(
                                 RoundedCornerShape(
@@ -94,7 +99,6 @@ fun Course(
                             )
                             .clickable { }
                             .background(Black)
-
                     ) {
                         AsyncImage(
                             model = "https://escolaeducacao.com.br/wp-content/uploads/2019/05/download.jpeg",

@@ -194,7 +194,7 @@ fun Post(navigate: NavigateViewModel) {
 }
 
 @Composable
-private fun ItemPost(
+ private fun ItemPost(
     onDelete: () -> Unit,
     onEdit: () -> Unit
 ) {

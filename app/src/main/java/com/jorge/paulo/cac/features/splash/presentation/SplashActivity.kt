@@ -63,6 +63,7 @@ import com.jorge.paulo.cac.features.splash.shape.Login
 import com.jorge.paulo.cac.features.splash.shape.Signup
 import com.jorge.paulo.cac.features.splash.shape.placeAt
 import com.jorge.paulo.cac.features.store.fragments.ListSection
+import com.jorge.paulo.cac.features.store.fragments.Message
 import com.jorge.paulo.cac.features.store.fragments.Profile
 
 
@@ -91,6 +92,7 @@ class SplashActivity : ComponentActivity() {
                     startActivity(Intent(this@SplashActivity, TimelineActivity::class.java))
                     finish()
                 }
+
 
                 //ListSection()
                 /* Box(

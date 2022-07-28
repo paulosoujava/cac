@@ -45,6 +45,9 @@ enum class AppIconList(val icon: Int) {
     DASHBOARD(R.drawable.ic_baseline_dashboard_24),
     CAMERA(R.drawable.ic_baseline_photo_camera_24),
     ADD(R.drawable.ic_baseline_add_24),
+    ALERT(R.drawable.ic_baseline_crisis_alert_24),
+    MESSAGE(R.drawable.ic_baseline_message_24),
+    LIST_MESSAGE(R.drawable.ic_baseline_format_list_bulleted_24),
 }
 
 @Composable

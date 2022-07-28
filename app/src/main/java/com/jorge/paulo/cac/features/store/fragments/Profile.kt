@@ -161,7 +161,24 @@ fun Profile(
 
                     }
                 })
-
+            AppSpace(appSizes = AppSpaceList.MEDIUM)
+            SectionWrapper(
+                onShow = { showSectionContact.value = !showSectionContact.value },
+                onSave = {},
+                isShow = showSectionContact.value,
+                titleSection = "Serviços oferecidos",
+                slot = {
+                    AppInputDefault(
+                        modifier = Modifier
+                            .height(130.dp)
+                            .padding(top = 20.dp, bottom = 20.dp),
+                        singleLine = false,
+                        onValueChange = {},
+                        value = "quais serviço o estande oferece?",
+                        label = "Serviços"
+                    )
+                }
+            )
             AppSpace(appSizes = AppSpaceList.MEDIUM)
 
             SectionWrapper(

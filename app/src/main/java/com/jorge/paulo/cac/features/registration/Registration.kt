@@ -59,6 +59,7 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppButtons
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
 import com.jorge.paulo.cac.core.commom.ui.components.AppInputDefault
+import com.jorge.paulo.cac.core.commom.ui.components.AppSelectedItem
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
 import com.jorge.paulo.cac.core.commom.ui.components.AppText
@@ -114,11 +115,11 @@ private fun Registration() {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            SelectedItem(selected = selectedCac, label = "CAC") {
+            AppSelectedItem(selected = selectedCac, label = "CAC") {
                 selectedCac = true
                 selectedInstructor = !selectedCac
             }
-            SelectedItem(selected = selectedInstructor, label = "Instrutor") {
+            AppSelectedItem(selected = selectedInstructor, label = "Instrutor") {
                 selectedInstructor = true
                 selectedCac = !selectedInstructor
             }
@@ -183,52 +184,3 @@ private fun Registration() {
 }
 
 
-@Composable
-fun SelectedItem(
-    selected: Boolean,
-    label: String,
-    onSelect: () -> Unit
-) {
-    Card(
-        shape = RoundedCornerShape(20),
-        elevation = Elevations.DEFAULT.size,
-        backgroundColor = Color.Black,
-        modifier = Modifier
-            .padding(10.dp)
-            .size(153.dp, 46.dp)
-            .border(1.dp, if (selected) Orange else Black, shape = RoundedCornerShape(20))
-            .clickable { onSelect() }
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            AppText(
-                modifier = Modifier.weight(3f),
-                appTextTypes = AppTextList.TITLE,
-                text = label, color = if (selected) Orange else LightGray
-            )
-            Box(){
-                AppIcons(
-                    appIcons = AppIconList.OUTLINE_EMPTY_CHECK,
-                    color =  if (selected) Orange else LightGray
-                )
-                androidx.compose.animation.AnimatedVisibility(
-                    visible = selected,
-                    enter =  fadeIn(),
-                ) {
-                    AppIcons(
-                        appIcons = AppIconList.CLOSE,
-                        color = Orange
-                    )
-                }
-
-            }
-
-        }
-
-    }
-}
