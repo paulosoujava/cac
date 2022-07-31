@@ -56,6 +56,9 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Red700
 import com.jorge.paulo.cac.core.commom.ui.theme.Red900
 import com.jorge.paulo.cac.core.commom.ui.theme.Shapes
 import com.jorge.paulo.cac.core.commom.ui.theme.White
+import com.jorge.paulo.cac.features.profile.presentation.cac.Certificate
+import com.jorge.paulo.cac.features.profile.presentation.cac.ProfileCacCreate
+import com.jorge.paulo.cac.features.profile.presentation.instructor.ProfileInstructorCreate
 import com.jorge.paulo.cac.features.splash.shape.CurveType
 import com.jorge.paulo.cac.features.splash.shape.CurvedShape
 import com.jorge.paulo.cac.features.splash.shape.Login
@@ -88,11 +91,11 @@ class SplashActivity : ComponentActivity() {
             val viewModel: SplashViewModel = hiltViewModel()
             AppTheme {
                 val state = viewModel.state.collectAsState()
-                Content(state) {
+                /*Content(state) {
                     startActivity(Intent(this@SplashActivity, TimelineActivity::class.java))
                     finish()
-                }
-
+                }*/
+ProfileInstructorCreate()
 
                 //ListSection()
                 /* Box(

@@ -14,9 +14,9 @@ import com.jorge.paulo.cac.features.store.domain.Fragments
 import com.jorge.paulo.cac.features.store.fragments.Administrator
 import com.jorge.paulo.cac.features.store.fragments.Cac
 import com.jorge.paulo.cac.features.store.fragments.Challenge
-import com.jorge.paulo.cac.features.store.fragments.Course
+import com.jorge.paulo.cac.features.commom.Course
 import com.jorge.paulo.cac.features.store.fragments.EditChallenge
-import com.jorge.paulo.cac.features.store.fragments.EditCourse
+import com.jorge.paulo.cac.features.commom.EditCourse
 import com.jorge.paulo.cac.features.store.fragments.EditProduct
 import com.jorge.paulo.cac.features.store.fragments.Partner
 import com.jorge.paulo.cac.features.store.fragments.Home
@@ -56,9 +56,16 @@ class StoreActivity : ComponentActivity() {
 
                     Fragments.NOTIFICATION -> Message(navigate)
 
-                    Fragments.COURSE -> Course(navigate)
+                    Fragments.COURSE -> Course(
+                        onClickBack = { navigate.onNavigate(Fragments.HOME) },
+                        onNavigate = {
+                            navigate.onNavigate(Fragments.EDIT_COURSE_SECTION)
+                        }
+                    )
 
-                    Fragments.EDIT_COURSE_SECTION -> EditCourse(navigate)
+                    Fragments.EDIT_COURSE_SECTION -> EditCourse(onNavigate = {
+                        navigate.onNavigate(Fragments.COURSE)
+                    })
 
                     Fragments.CHALLENGE -> Challenge(navigate)
 
@@ -82,7 +89,7 @@ class StoreActivity : ComponentActivity() {
                         Home(navigate,
                             onDeleteAccount = {},
                             onBack = { finish() },
-                            onClick = {navigateSection(it,navigate)}
+                            onClick = { navigateSection(it, navigate) }
                         )
                     }
                 }
@@ -94,13 +101,17 @@ class StoreActivity : ComponentActivity() {
 
     override fun onBackPressed() {
         //super.onBackPressed()
-        Toast.makeText(this@StoreActivity, "Por favor use as setas do app para navegar", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this@StoreActivity,
+            "Por favor use as setas do app para navegar",
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
 
 
-private fun  navigateSection(type: String?, navigate: NavigateViewModel){
-    if(type.isNullOrBlank())return
+private fun navigateSection(type: String?, navigate: NavigateViewModel) {
+    if (type.isNullOrBlank()) return
     return when (type) {
         Fragments.POST.name -> navigate.onNavigate(Fragments.POST)
         Fragments.HOME.name -> navigate.onNavigate(Fragments.HOME)

@@ -48,6 +48,10 @@ enum class AppIconList(val icon: Int) {
     ALERT(R.drawable.ic_baseline_crisis_alert_24),
     MESSAGE(R.drawable.ic_baseline_message_24),
     LIST_MESSAGE(R.drawable.ic_baseline_format_list_bulleted_24),
+    EXIT(R.drawable.ic_baseline_exit_to_app_24),
+    INVISIBLE(R.drawable.ic_baseline_visibility_off_24),
+    VISIBLE(R.drawable.ic_baseline_visibility_24),
+    RESTRICTES(R.drawable.ic_baseline_not_interested_24),
 }
 
 @Composable

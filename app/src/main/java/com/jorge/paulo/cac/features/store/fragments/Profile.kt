@@ -39,6 +39,9 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppDivider
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
 import com.jorge.paulo.cac.core.commom.ui.components.AppInputDefault
+import com.jorge.paulo.cac.core.commom.ui.components.AppSectionContact
+import com.jorge.paulo.cac.core.commom.ui.components.AppSectionMidia
+import com.jorge.paulo.cac.core.commom.ui.components.AppSectionWrapper
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
 import com.jorge.paulo.cac.core.commom.ui.components.AppText
@@ -114,11 +117,16 @@ fun Profile(
 
             }
             Divider(
-                modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, start = 20.dp, end = 20.dp),
+                modifier = Modifier.padding(
+                    top = 20.dp,
+                    bottom = 20.dp,
+                    start = 20.dp,
+                    end = 20.dp
+                ),
                 color = Black
             )
 
-            SectionWrapper(
+            AppSectionWrapper(
                 onShow = { showSectionStore.value = !showSectionStore.value },
                 onSave = {},
                 isShow = showSectionStore.value,
@@ -162,7 +170,7 @@ fun Profile(
                     }
                 })
             AppSpace(appSizes = AppSpaceList.MEDIUM)
-            SectionWrapper(
+            AppSectionWrapper(
                 onShow = { showSectionContact.value = !showSectionContact.value },
                 onSave = {},
                 isShow = showSectionContact.value,
@@ -180,153 +188,23 @@ fun Profile(
                 }
             )
             AppSpace(appSizes = AppSpaceList.MEDIUM)
-
-            SectionWrapper(
-                onShow = { showSectionContact.value = !showSectionContact.value },
-                onSave = {},
-                isShow = showSectionContact.value,
-                titleSection = "Dados para Contatos",
-                slot = {
-                    Column {
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite o email",
-                            label = "Email"
-                        )
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite o número",
-                            label = "WhatsApp"
-                        )
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite o número",
-                            label = "Telefone"
-                        )
-                    }
-                }
-            )
+            AppSectionContact(
+                onShow = {
+                    showSectionContact.value = !showSectionContact.value
+                },
+                isShow = showSectionContact.value
+            ){}
 
             AppSpace(appSizes = AppSpaceList.MEDIUM)
 
-            SectionWrapper(
-                onShow = { showSectionMidia.value = !showSectionMidia.value },
-                onSave = {},
-                isShow = showSectionMidia.value,
-                titleSection = "Dados de mídias",
-                slot = {
-                    Column {
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite a url",
-                            label = "Facebook"
-                        )
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite o @seunome",
-                            label = "Instagram"
-                        )
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite a url",
-                            label = "Site"
-                        )
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite a url",
-                            label = "Youtube"
-                        )
-                        AppInputDefault(
-                            modifier = Modifier
-                                .padding(top = 20.dp, bottom = 20.dp),
-                            singleLine = false,
-                            onValueChange = {},
-                            value = "digite o @seunome",
-                            label = "TikTok"
-                        )
-                    }
-                }
-            )
+            AppSectionMidia(
+                onShow = {
+                    showSectionMidia.value = !showSectionMidia.value
+                },
+                isShow = showSectionMidia.value
+            ){}
+
         }
     }
 }
 
-@Composable
-fun SectionWrapper(
-    titleSection: String,
-    isShow: Boolean,
-    onShow: () -> Unit,
-    onSave: () -> Unit,
-    slot: @Composable () -> Unit,
-) {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp))
-            .background(Black)
-            .padding(20.dp)
-    ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .clickable { onShow() }
-                .background(Black)
-                .padding(10.dp)
-        ) {
-            AppText(
-                modifier = Modifier.weight(9f),
-                appTextTypes = AppTextList.TITLE, text = titleSection
-            )
-            Box(
-                modifier = Modifier.weight(1f)
-            ) {
-                AppIcons(
-                    appIcons = if (isShow) AppIconList.ARROW_UP else AppIconList.ARROW_DOWN,
-                    color = Orange
-                )
-            }
-
-        }
-
-        AnimatedVisibility(visible = isShow) {
-            Column {
-                AppDivider(
-                    modifier = Modifier.padding(top = 10.dp, bottom = 35.dp),
-                    color = Orange.copy(.3f)
-                )
-                slot()
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    AppButtons(
-                        colorButton = Green,
-                        label = "Cadastrar",
-                        appButtons = AppButtonList.DEFAULT, onClick = { onSave() })
-                }
-            }
-        }
-    }
-}

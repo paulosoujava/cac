@@ -49,7 +49,7 @@ import com.jorge.paulo.cac.core.commom.ui.theme.LightGray
 import kotlin.math.min
 
 @Composable
-fun ProfileInstructor(
+fun ProfileInstructorRead(
     finish: () -> Unit
 ) {
     val scrollState = rememberScrollState()

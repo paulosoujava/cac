@@ -6,8 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.jorge.paulo.cac.core.commom.ui.theme.AppTheme
 import com.jorge.paulo.cac.features.profile.presentation.ProfileScreens
-import com.jorge.paulo.cac.features.profile.presentation.cac.ProfileCac
-import com.jorge.paulo.cac.features.profile.presentation.instructor.ProfileInstructor
+import com.jorge.paulo.cac.features.profile.presentation.cac.ProfileCacRead
+import com.jorge.paulo.cac.features.profile.presentation.instructor.ProfileInstructorRead
 import com.jorge.paulo.cac.features.profile.presentation.store.ProfileProduct
 import com.jorge.paulo.cac.features.profile.presentation.store.ProfileProductDetail
 import com.jorge.paulo.cac.features.profile.presentation.store.ProfileStore
@@ -25,7 +25,7 @@ class ProfileActivity : ComponentActivity() {
                 )
                 when (it.action) {
                     ProfileScreens.CAC.screen -> {
-                        ProfileCac(){
+                        ProfileCacRead(){
                             finish()
                         }
                     }
@@ -44,7 +44,7 @@ class ProfileActivity : ComponentActivity() {
                         )
                     }
                     ProfileScreens.INSTRUCTOR.screen -> {
-                        ProfileInstructor(){ finish() }
+                        ProfileInstructorRead(){ finish() }
                     }
                     ProfileScreens.PRODUCT.screen -> {
                         ProfileProduct(

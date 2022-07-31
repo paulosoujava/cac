@@ -1,10 +1,8 @@
-package com.jorge.paulo.cac.features.store.fragments
+package com.jorge.paulo.cac.features.commom
 
-import android.util.Size
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -61,12 +59,12 @@ import com.jorge.paulo.cac.features.store.domain.Fragments
 
 @Composable
 fun EditCourse(
-    navigate: NavigateViewModel
+    onNavigate: () -> Unit
 ) {
     Scaffold(
         topBar = {
                AppToolbar(
-                   onBack = { navigate.onNavigate(Fragments.COURSE) },
+                   onBack = onNavigate,
                    title = "Cadastro de Curso"
                )
         }

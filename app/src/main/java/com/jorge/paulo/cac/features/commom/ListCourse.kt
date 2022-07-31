@@ -1,4 +1,4 @@
-package com.jorge.paulo.cac.features.store.fragments
+package com.jorge.paulo.cac.features.commom
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -47,7 +47,8 @@ import com.jorge.paulo.cac.features.store.domain.Fragments
 
 @Composable
 fun Course(
-    navigate: NavigateViewModel
+   onClickBack: () -> Unit,
+   onNavigate: () -> Unit
 ) {
     val showPopUp = remember { mutableStateOf(false) }
 
@@ -62,7 +63,7 @@ fun Course(
             ) {
                 AppToolbar(
                     modifier = Modifier.weight(4f),
-                    onBack = { navigate.onNavigate(Fragments.HOME) },
+                    onBack = onClickBack,
                     title = "Cursos"
                 )
                 AppButtons(
@@ -70,7 +71,9 @@ fun Course(
                     colorButton = Color.Transparent,
                     appICons = { AppIcons(appIcons = AppIconList.ADD) },
                     appButtons = AppButtonList.ICON,
-                    onClick = { navigate.onNavigate(Fragments.EDIT_COURSE_SECTION) })
+                    onClick = onNavigate
+                )
+
             }
         }
     ) {
@@ -157,7 +160,7 @@ fun Course(
                                         )
                                     },
                                     appButtons = AppButtonList.ICON,
-                                    onClick = { navigate.onNavigate(Fragments.EDIT_COURSE_SECTION) }
+                                    onClick = onNavigate
                                 )
                             }
                         }

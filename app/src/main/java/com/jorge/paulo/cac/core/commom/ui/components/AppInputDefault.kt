@@ -37,16 +37,18 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Red700
 import com.jorge.paulo.cac.core.commom.ui.theme.White
 import java.time.format.TextStyle
 
+val color = LightGray.copy(.2f)
+
 @Composable
 fun AppInputDefault(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     value: String,
     label: String,
-    colorLabel: Color = White,
-    cursorColor: Color = White,
-    focusedBorderColor: Color = LightGray,
-    unfocusedBorderColor: Color = White,
+    colorLabel: Color = color,
+    cursorColor: Color = color,
+    focusedBorderColor: Color = color,
+    unfocusedBorderColor: Color = color,
     enabled: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text,
     singleLine: Boolean = true
@@ -59,7 +61,7 @@ fun AppInputDefault(
         value = value,
         onValueChange = { onValueChange(it) },
         textStyle = androidx.compose.ui.text.TextStyle(
-            color = White
+            color = color
         ),
         label = {
             AppText(
@@ -69,9 +71,10 @@ fun AppInputDefault(
             )
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            cursorColor = White,
-            focusedBorderColor = LightGray,
-            unfocusedBorderColor = White
+            cursorColor = color,
+            focusedBorderColor = color,
+            unfocusedBorderColor = color,
+            textColor = color
         ),
         modifier = modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions.Default.copy(

@@ -50,7 +50,7 @@ import com.jorge.paulo.cac.core.commom.ui.theme.Red700
 import com.jorge.paulo.cac.core.commom.ui.theme.White
 
 @Composable
-fun ProfileCac(
+fun ProfileCacRead(
     finish: () -> Unit,
 ) {
     Scaffold() {
