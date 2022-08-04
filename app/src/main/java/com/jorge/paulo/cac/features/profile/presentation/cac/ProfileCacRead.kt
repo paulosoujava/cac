@@ -16,12 +16,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -35,6 +39,7 @@ import com.jorge.paulo.cac.core.commom.ui.components.AppDivider
 import com.jorge.paulo.cac.core.commom.ui.components.AppIconList
 import com.jorge.paulo.cac.core.commom.ui.components.AppIcons
 import com.jorge.paulo.cac.core.commom.ui.components.AppMidia
+import com.jorge.paulo.cac.core.commom.ui.components.AppSectionWrapper
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpace
 import com.jorge.paulo.cac.core.commom.ui.components.AppSpaceList
 import com.jorge.paulo.cac.core.commom.ui.components.AppText
@@ -53,6 +58,9 @@ import com.jorge.paulo.cac.core.commom.ui.theme.White
 fun ProfileCacRead(
     finish: () -> Unit,
 ) {
+    val showAlert = remember {
+        mutableStateOf(false)
+    }
     Scaffold() {
         Card(
             modifier = Modifier
@@ -107,28 +115,42 @@ fun ProfileCacRead(
                         .background(Black25)
                         .padding(15.dp)
                 ) {
-                    IconWithText(
-                        appICons = AppIconList.PISTOL,
-                        text = "Mensagens"
-                    )
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
 
-                        AppButtons(
-                            colorBorderButton = Orange,
-                            label = "Notificar o usuário",
-                            appButtons = AppButtonList.ROUNDED,
-                            onClick = { /*TODO*/ }
-                        )
-                        AppButtons(
-                            colorBorderButton = Orange,
-                            label = "Notificar aos Estandes",
-                            appButtons = AppButtonList.ROUNDED,
-                            onClick = { /*TODO*/ }
-                        )
+
+                    AppSectionWrapper(
+                        titleSection = "Alertas",
+                        isShow = showAlert.value,
+                        hasButton = false,
+                        onShow = { showAlert.value = !showAlert.value }) {
+                        Column {
+                            AppText(
+                                modifier = Modifier.padding(top=1.dp, bottom = 25.dp),
+                                appTextTypes = AppTextList.SMALL,
+                                text = "Somente os estandes tem acesso a estas mensagens."
+                            )
+                            repeat(4) {
+                                Column {
+                                    AppText(
+                                        color = LightGray,
+                                        appTextTypes = AppTextList.SMALL,
+                                        maxLines = 10,
+                                        text = "A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real."
+                                    )
+                                    Divider(
+                                        modifier = Modifier.padding(
+                                            top = 10.dp,
+                                            start = 15.dp,
+                                            end = 15.dp,
+                                            bottom = 15.dp,
+                                        ),
+                                        color = LightGray.copy(.5f)
+                                    )
+                                }
+                            }
+                        }
                     }
+
+
                     AppDivider(
                         modifier = Modifier
                             .padding(top = 20.dp, bottom = 20.dp),

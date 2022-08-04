@@ -91,32 +91,21 @@ class SplashActivity : ComponentActivity() {
             val viewModel: SplashViewModel = hiltViewModel()
             AppTheme {
                 val state = viewModel.state.collectAsState()
-                /*Content(state) {
+                Content(state) {
                     startActivity(Intent(this@SplashActivity, TimelineActivity::class.java))
                     finish()
-                }*/
-ProfileInstructorCreate()
+                }
 
-                //ListSection()
-                /* Box(
-                     modifier = Modifier
-                         .fillMaxSize()
-                         .padding(16.dp),
-                 ) {
-                     Signup(
-                         modifier = Modifier
-                             .fillMaxWidth()
-                             .height(600.dp)
-                             .placeAt(0, 0)
-                     )
-
-                     Login(
-                         modifier = Modifier
-                             .fillMaxWidth()
-                             .height(250.dp)
-                             .placeAt(0, loginY.roundToInt())
-                     )
-                     */
+                /*
+                FALTA:
+                  ALERTA no cac: onde os estandes podem
+                  ficar sabendo de algo,
+                  colocar iconde de alert,
+                  listar cacs com alert
+                  visualizar o alert
+                  remover botoes do perfil do cac de
+                  enviar mensagem e alerta
+                 */
 
             }
         }
